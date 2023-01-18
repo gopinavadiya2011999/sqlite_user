@@ -1,25 +1,19 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqlite_user/model/user_model.dart';
 
 class DatabaseHelper {
-  static const _dbName = 'smsForwarding';
+  static const _dbName = 'userData';
   static const _dbVersion = 1;
 
-  static const tableName = 'smsData';
-  static const msgHistoryName = 'smsHistory';
+  static const tableName = 'user';
 
-  static const msgId = 'msgId';
-  static const msg = 'msg';
-  static const fromWho = 'fromWho';
-  static const dateTime = 'dateTime';
-  static const senderNo = 'senderNo';
-
-  static const countryCode = 'countryCode';
-  static const smsId = 'smsId';
-  static const text = 'text';
-  static const switchOn = 'switchOn';
-  static const otpSwitch = 'otpSwitch';
-  static const filterName = 'filterName';
+  static const userId = 'userId';
+  static const firstName = 'firstName';
+  static const lastName = 'lastName';
+  static const email = 'email';
+  static const password = 'password';
+  static const age = 'age';
 
   DatabaseHelper._privateConstructor();
 
@@ -41,75 +35,50 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
     CREATE TABLE $tableName(
-    $smsId INTEGER  NOT NULL,
-    $text TEXT NOT NULL,
-    $filterName TEXT NOT NULL,
-    $switchOn INTEGER NOT NULL,
-    $otpSwitch INTEGER NOT NULL,
-    $countryCode TEXT NOT NULL
+    $userId TEXT  NOT NULL,
+    $email TEXT NOT NULL,
+    $password TEXT NOT NULL,
+    $firstName TEXT NOT NULL,
+    $lastName TEXT NOT NULL,
+    $age TEXT NOT NULL
     )''');
 
-    await db.execute('''
-    CREATE TABLE $msgHistoryName(
-    $msgId INTEGER NOT NULL,
-    $msg TEXT NOT NULL,
-    $fromWho TEXT NOT NULL,
-    $dateTime TEXT NOT NULL,
-    $senderNo TEXT NOT NULL
-    )''');
+
   }
 
-  Future<int> insert(SmsModel shoppingModel) async {
+  Future<int> registerUser(UserModel userModel) async {
     Database database = await instance.database;
     return await database.insert(tableName, {
-      'smsId': shoppingModel.smsId,
-      'text': shoppingModel.text,
-      'filterName': shoppingModel.filterName,
-      'switchOn': shoppingModel.switchOn,
-      'otpSwitch': shoppingModel.otpSwitch,
-      'countryCode': shoppingModel.countryCode,
+      'userId': userModel.userId,
+      'firstName': userModel.firstName,
+      'lastName': userModel.lastName,
+      'email': userModel.email,
+      'password': userModel.password,
+      'age': userModel.age
     });
   }
 
-  Future<int> insertMessage(MessageModel messageModel) async {
-    Database database = await instance.database;
-    return await database.insert(msgHistoryName, {
-      'msgId': messageModel.msgId,
-      'msg': messageModel.msg,
-      'fromWho': messageModel.fromWho,
-      'dateTime': messageModel.dateTime,
-      'senderNo': messageModel.senderNo,
-    });
-  }
 
-  Future<List<Map<String, dynamic>>> queryAllRows() async {
+
+  Future<List<Map<String, dynamic>>> getAllUser() async {
     Database database = await instance.database;
     return await database.query(tableName);
   }
 
-  Future<List<Map<String, dynamic>>> getAllSms() async {
-    Database database = await instance.database;
-    return await database.query(msgHistoryName);
-  }
 
-  Future<int> update(SmsModel shoppingModel) async {
+  Future<int> updateUser(UserModel userModel) async {
     Database database = await instance.database;
 
-    return database.update(tableName, shoppingModel.toMap(),
-        where: "smsId = ?", whereArgs: [shoppingModel.smsId]);
+    return database.update(tableName, userModel.toMap(),
+        where: "userId = ?", whereArgs: [userModel.userId]);
   }
 
-  Future<int> delete(SmsModel shoppingModel) async {
+  Future<int> delete(UserModel userModel) async {
     Database database = await instance.database;
 
     return database.delete(tableName,
-        where: "smsId = ?", whereArgs: [shoppingModel.smsId]);
+        where: "userId = ?", whereArgs: [userModel.userId]);
   }
 
-  Future<int> deleteSms(MessageModel messageModel) async {
-    Database database = await instance.database;
 
-    return database.delete(msgHistoryName,
-        where: "msgId = ?", whereArgs: [messageModel.msgId]);
-  }
 }
