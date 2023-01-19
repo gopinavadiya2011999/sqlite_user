@@ -9,12 +9,11 @@ customTextField(
     required String labelText,
     String? suffixIcon,
     String? errorText,
-      bool readOnly=false,
+    bool readOnly = false,
     FormFieldValidator? validator,
     bool obscure = false,
     double? maxWidth,
-
-      GestureTapCallback ?onTap,
+    GestureTapCallback? onTap,
     List<TextInputFormatter>? inputFormatters,
     TextInputType? keyboardType,
     Widget? prefixIcon,
@@ -35,8 +34,7 @@ customTextField(
         child: TextFormField(
           onTap: onTap,
 
-
-readOnly: readOnly,
+          readOnly: readOnly,
           inputFormatters: inputFormatters,
           obscureText: obscure ? true : false,
           validator: validator,
@@ -68,7 +66,7 @@ readOnly: readOnly,
         Align(
           alignment: AlignmentDirectional.topStart,
           child: Container(
-            margin: const EdgeInsets.only(top: 8,bottom: 8),
+            margin: const EdgeInsets.only(top: 8, bottom: 8),
             child: Text(
               errorText,
               textAlign: TextAlign.start,

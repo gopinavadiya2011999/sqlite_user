@@ -3,10 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'color_constant.dart';
 
 class TextStyleConstant {
-  static TextStyle logoStyle = TextStyle(
-      fontSize: 32,
-      fontWeight: FontWeight.w500,
-      color: ColorConstant.black22);
 
   static TextStyle titleStyle = TextStyle(
       fontSize: 22,
@@ -20,10 +16,6 @@ class TextStyleConstant {
       fontSize: 14,
       fontWeight: FontWeight.w500,
       color: ColorConstant.orange);
-  static TextStyle headingWelcome = TextStyle(
-      fontSize: 24,
-      fontWeight: FontWeight.w700,
-      color: ColorConstant.black22);
   static TextStyle grey12 = TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,

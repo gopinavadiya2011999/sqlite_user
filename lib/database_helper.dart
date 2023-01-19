@@ -60,6 +60,7 @@ class DatabaseHelper {
 
 
 
+
   Future<List<Map<String, dynamic>>> getAllUser() async {
     Database database = await instance.database;
     return await database.query(tableName);
@@ -69,7 +70,7 @@ class DatabaseHelper {
   Future<int> updateUser(UserModel userModel) async {
     Database database = await instance.database;
 
-    return database.update(tableName, userModel.toMap(),
+    return database.update(tableName, UserModel.toMap(userModel),
         where: "userId = ?", whereArgs: [userModel.userId]);
   }
 
